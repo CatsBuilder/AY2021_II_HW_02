@@ -4,17 +4,17 @@
     #include "cytypes.h"
     
     
-    typedef struct Color {
+    typedef struct color {
         uint8 red;
         uint8 green;
         uint8 blu;
-    }Color;
+    }color;
     
     void RGBLed_Start();
     
     void RGBLed_Stop();
     
-    void RGBLed_WriteColor(Color c);
+    void RGBLed_WriteColor(color c);
 #endif
 
 /* [] END OF FILE */

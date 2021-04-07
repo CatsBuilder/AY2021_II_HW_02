@@ -7,7 +7,7 @@
     #include "Uart_Routine.h"
     Color Data;
     
-    void SelectColor();
+    void SelectColor(void);
     
     
     
