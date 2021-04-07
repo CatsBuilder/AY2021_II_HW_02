@@ -4,8 +4,7 @@
     #include "cytypes.h"
     #include "RGBLedDriver.h"
     #include "UART.h"
-    #include "Int.h"
-    #include "GetKey.h"
+    #include "Uart_Routine.h"
     Color Data;
     
     void SelectColor();

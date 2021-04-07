@@ -11,8 +11,7 @@
 */
 #include "project.h"
 #include "timeout.h"
-#include"GetKey.h"
-#include"Int.h"
+#include"Uart_Routine.h"
 #include"RGBLedDriver.h"
 #include"SelectColor.h"
 #define START 160
@@ -20,6 +19,7 @@
 uint8_t timer_compare=5;  //tempo di timeout (in secondi)
 uint8_t stop_uart=0;    //flag di timeout per l'uart, dato che non so come si comporterebbe l'uart se diamo il comando di stop che trovi nella routine in "timeout.c", nel caso abbiamo questa flag da usare
 uint8_t count=0;    //tempo di conteggio per timeout (in secondi)
+uint8_t header,tail,red,green,blue, timer_compare_temp;
 int main(void)
 {
     CyGlobalIntEnable; /* Enable global interrupts. */
