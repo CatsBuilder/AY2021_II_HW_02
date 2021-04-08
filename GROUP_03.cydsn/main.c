@@ -43,9 +43,9 @@ int main(void){
     for(;;){
         if (info==ERRORE){
             Timeout_Timer_Stop();
-            count=0;
+            count=0;//Timer Reset
             UART_Start();
-            PWM_R_WriteCompare(255);
+            PWM_R_WriteCompare(255);//In caso di errore viene il led diventa rosso
             PWM_BG_WriteCompare1(0);
             PWM_BG_WriteCompare2(0);
             header=0;

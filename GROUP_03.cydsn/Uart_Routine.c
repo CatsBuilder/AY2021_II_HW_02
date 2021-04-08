@@ -1,3 +1,4 @@
+//*Routine Interrupt UART*//
 
 #include "RGBLedDriver.h"
 #include "Uart_Routine.h"
@@ -13,7 +14,7 @@
 #define TAIL 4
 #define TIMEOUTSELECTION 5
 #define ERRORE 6
-extern uint8_t rgb[3]; //[red,green,blue]
+extern uint8_t rgb[3]; //array in cui vengono salvati temporaneamente i valori da inserire nel LED [red,green,blue]
 extern uint8_t header,timer_compare,tail, timer_compare_temp,count,stop, info;
 uint8_t i;
 extern color color_led;
@@ -34,7 +35,7 @@ CY_ISR(Custom_UART_RX_ISR){
                 info=RED;
                 
             }
-            else if(header=='v'){
+            else if(header==0x76|| header==0x56){// in caso di header 'v' oppure 'V'
                 UART_PutString("RGB LED Program $$$");//Per Test GUI
                 UART_ClearRxBuffer();//refresh sul buffer
                 Timeout_Timer_Stop();

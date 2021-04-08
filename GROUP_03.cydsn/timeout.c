@@ -1,18 +1,14 @@
 /* ========================================
- *
- * 
- * 
- * 
- *
- * 
- * 
- *
+Routine dell'interrupt del timer
+se il conteggio del timer supera 
+il valore impostato viene aggiornata 
+la variabile di stato 'info'
  * ========================================
 */
 #include "timeout.h"
 #include "project.h"
 #define ERRORE 6
-extern uint8_t count;
+extern uint8_t count;//Variabile che tiene conto dei secondi passati dall'avvio del timer
 extern uint8_t timer_compare;
 extern uint8_t info;
 uint8_t flag=0;
