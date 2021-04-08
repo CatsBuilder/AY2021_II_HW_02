@@ -1,3 +1,7 @@
+/* =============================
+ *Header della routine dell'UART
+ * =============================
+*/
 #ifndef __INT_H
     #define __INT_H
     #include "cytypes.h"

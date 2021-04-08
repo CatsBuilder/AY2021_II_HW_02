@@ -1,11 +1,11 @@
 /* ========================================
  *
- * Copyright YOUR COMPANY, THE YEAR
- * All Rights Reserved
- * UNPUBLISHED, LICENSED SOFTWARE.
+ * 
+ * 
+ * 
  *
- * CONFIDENTIAL AND PROPRIETARY INFORMATION
- * WHICH IS THE PROPERTY OF your company.
+ * 
+ * 
  *
  * ========================================
 */
@@ -44,8 +44,8 @@ int main(void){
         if (info==ERRORE){
             Timeout_Timer_Stop();
             count=0;//Timer Reset
-            UART_Start();
-            PWM_R_WriteCompare(255);//In caso di errore viene il led diventa rosso
+            //UART_Start();
+            PWM_R_WriteCompare(255);//In caso di errore viene il led diventa rosso utilizzato per debugging
             PWM_BG_WriteCompare1(0);
             PWM_BG_WriteCompare2(0);
             header=0;

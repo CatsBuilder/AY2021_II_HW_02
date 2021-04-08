@@ -40,7 +40,6 @@ CY_ISR(Custom_UART_RX_ISR){
                 UART_ClearRxBuffer();//refresh sul buffer
                 Timeout_Timer_Stop();
                 info=HEAD;
-                break;
             }
             else 
                 info=ERRORE; //se arriva un header che non è associato a nessuna routine, finiamo diretti in case ERRORE

@@ -1,12 +1,6 @@
-/* ========================================
- *
- *  Header della routine del timer per andare in timeout dopo <Valore> secondi, immessi da terminale
- * 
- * 
- *
- * 
- *
- * ========================================
+/* ===============================================================================================
+ *Header della routine del timer per andare in timeout dopo <Valore> secondi, immessi da terminale
+ * ===============================================================================================
 */
 #ifndef __TIMEOUT_H__
     #define __TIMEOUT_H__

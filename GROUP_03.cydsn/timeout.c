@@ -11,18 +11,12 @@ la variabile di stato 'info'
 extern uint8_t count;//Variabile che tiene conto dei secondi passati dall'avvio del timer
 extern uint8_t timer_compare;
 extern uint8_t info;
-uint8_t flag=0;
 CY_ISR(CustomTimerISR){
-    
     count++;
     Timeout_Timer_ReadStatusRegister();
     if (count>=timer_compare){
         info=ERRORE;
-        
     }
-    else 
-        ;
-    
+    else ;
 }
-
 /* [] END OF FILE */
