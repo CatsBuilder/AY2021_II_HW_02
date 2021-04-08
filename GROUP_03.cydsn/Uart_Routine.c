@@ -34,6 +34,11 @@ CY_ISR(Custom_UART_RX_ISR){
                 info=RED;
                 
             }
+            else if(header=='v'){
+                UART_PutString("RGB LED Program $$$");
+                UART_ClearRxBuffer();
+                break;
+            }
             else 
                 info=ERRORE; //se arriva un header che non è associato a nessuna routine, finiamo diretti in case ERRORE
             UART_ClearRxBuffer(); //refresh sul buffer
