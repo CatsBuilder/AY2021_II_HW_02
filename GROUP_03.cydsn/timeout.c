@@ -11,17 +11,18 @@
 */
 #include "timeout.h"
 #include "project.h"
-
+#define ERRORE 6
 extern uint8_t count;
 extern uint8_t timer_compare;
-extern uint8_t stop_uart, stop;
+extern uint8_t info;
+uint8_t flag=0;
 CY_ISR(CustomTimerISR){
-    count++; // il timer va in overflow ogni secondo, count sono i sewcondi trascorsi da quando il timer è stato inizializzato
+    
+    count++;
+    Timeout_Timer_ReadStatusRegister();
     if (count>=timer_compare){
-        UART_Stop();
-        stop=1
-        //metodo alternativo è usare una porta per forzare il reset sulla uart, in questa routine abilitamo una porta e la accendiamo, nel top design colleghiamo quella porta al reset pin 
-        count=0;
+        info=ERRORE;
+        
     }
     else 
         ;

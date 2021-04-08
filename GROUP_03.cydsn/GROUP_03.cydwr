@@ -3353,6 +3353,13 @@
         <Data key="Vector" value="-1" />
       </Group>
     </Group>
+    <Group key="80873b77-db6a-4469-ac0d-90dab8219274">
+      <Group key="CortexM3">
+        <Data key="Assigned" value="True" />
+        <Data key="Priority" value="6" />
+        <Data key="Vector" value="-1" />
+      </Group>
+    </Group>
   </Group>
   <Group key="Pin2">
     <Group key="3d848dfc-492a-4da5-afdc-697cbcc124d2">

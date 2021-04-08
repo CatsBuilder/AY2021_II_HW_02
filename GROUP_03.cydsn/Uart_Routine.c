@@ -5,11 +5,87 @@
 #include "stdio.h"
 #include "cytypes.h"
 #include "Timeout_Timer.h"
-
+#include "project.h"
+#define HEAD 0
+#define RED 1
+#define GREEN 2
+#define BLU 3
+#define TAIL 4
+#define TIMEOUTSELECTION 5
+#define ERRORE 6
 extern uint8_t rgb[3]; //[red,green,blue]
-extern uint8_t header,timer_compare,tail, timer_compare_temp,count,stop;
+extern uint8_t header,timer_compare,tail, timer_compare_temp,count,stop, info;
 uint8_t i;
 extern color color_led;
+
+CY_ISR(Custom_UART_RX_ISR){
+    switch (info) { //gli switch si riferiscono agli stati della macchina a stati finiti, ogni case è un passo
+        case HEAD: //inizialmente ci si aspetta di avere l'header iniziale
+            header=UART_ReadRxData();
+            Timeout_Timer_Start();
+            if(header==0xa1){ //a seconda di qual è l'header, decidiamo se fare selezione timeout o selezione colore
+                info=TIMEOUTSELECTION;
+            }
+            else if (header==0xa0){ //in caso di header 160 "entriamo nel loop" che ci porta a cambiare il colore
+                //il primo passo è il rosso
+                //settiamo il counter a zero per partire a contare
+                //Timeout_Timer_Init(); /*partiamo con il conteggio che nel caso portasse il valore di count oltre il 
+                //timeout time, ci porterà allo stato di errore dove viene reinizializzato tutto e si riparte da head*/
+                info=RED;
+                
+            }
+            else 
+                info=ERRORE; //se arriva un header che non è associato a nessuna routine, finiamo diretti in case ERRORE
+            UART_ClearRxBuffer(); //refresh sul buffer
+            break;
+        case TIMEOUTSELECTION: // routine per cambiare il tempo di timeout
+            count=0;
+            timer_compare_temp=UART_ReadRxData(); /*mettiamo il tempo immesso in una variabile temporanea, in caso il 
+            tail non sia corretto, la variabile vera verrà cambiata solo in caso il tail sia corretto*/
+            info=TAIL; //andiamo ad aspettare il prossimo byte che sarà di tail
+            UART_ClearRxBuffer();
+            break;
+        case RED:
+            color_led.red=UART_ReadRxData(); //in caso di 160 finiamo nella routine del colore, il primo è il rosso
+            count=0; //se arriviamo qui senza errori azzeriamo il timer
+            UART_ClearRxBuffer();
+            info=GREEN;
+            break;
+        case GREEN:
+            color_led.green=UART_ReadRxData();
+            count=0;
+            UART_ClearRxBuffer();
+            info=BLU;
+            break;
+        case BLU:
+            color_led.blu=UART_ReadRxData();
+            UART_ClearRxBuffer();
+            info=TAIL;
+            count=0;
+            break;
+        case TAIL:
+            tail=UART_ReadRxData();
+            if (tail==0xc0 && header==0xa1){
+                timer_compare=timer_compare_temp;
+                info=HEAD;
+            }
+            else if (tail==0xc0 && header==0xa0){
+                RGBLed_WriteColor(color_led);
+                info=HEAD;
+                
+            }
+            else
+                info=ERRORE;
+            UART_ClearRxBuffer();
+            count=0;
+            Timeout_Timer_Stop();
+            break;
+            
+    }
+    
+}
+/*=======================================================
+\ Questa routine va bene per fare tutti in un solo interrupt, meglio fare un interrupt ogni byte arrivato 
 CY_ISR(Custom_UART_RX_ISR){ 
     tail=0;
     header=0;
@@ -53,5 +129,7 @@ CY_ISR(Custom_UART_RX_ISR){
     else if (tail!=192) 
         ;
 }
+=========================================================
+*/
 
 /* [] END OF FILE */

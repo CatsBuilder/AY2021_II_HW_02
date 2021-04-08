@@ -20,7 +20,7 @@ void RGBLed_Stop()
     PWM_R_Stop();
 }
 
-void RGBLed_WriteColor(Color c)
+void RGBLed_WriteColor(color c)
 {
     RGBLed_WriteRed(c.red);
     RGBLed_WriteGreen(c.green);
