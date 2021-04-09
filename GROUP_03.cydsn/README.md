@@ -1,8 +1,17 @@
-05.04.21
-Il TopDesign è stato fatto, in caso di perplessità o chiarimenti non presenti in questo log, scrivere a oswaldo.parra@mail.polimi.it o oswaldo.w.parra@gmail.com.
-gli elementi sono stati collocati nello schematico e mappati nei pin fisici dello PSoC.
-E' stato aggiunto il time in modo da mandare il segnale di timeout tramite un'interrupt di priorità più alta rispetto a quello inerente alla UART (E.G. ad ogni interrupt incrementa un conteggio e confronta con il numero che non deìvessere superato, if raggiunto stacca tutto), il timer ha un TC di 1 secondo quindi si può impostare l'interrupt in modo da far contare i TC al timer e bloccare tutto quando questo conteggio raggiunge il numero immesso dal terminale come descritto nelle specifiche di progetto, il timer ha un segnale di enable per inizializzare il conteggio solo quando necessario, nel programma possiamo dare un segnale di enable tramite la porta a cui è collegato questo segnale.
-Oswaldo
-
-
-Tolta l'attivazione hardware per il timer, meglio utilizzare "void Timeout_Interrupt_Enable(void);" per attivarlo quando bisogna iniziare a contare e "void Timeout_Interrupt_Disable(void);" per smettere
+09/apr/2021
+	Second Assignment
+	the project implements 3 headers:
+		RGBLedDriver.h
+		timeout.h	
+		Uart_Routine.h
+	and 4 executables:
+		main.c 
+		RGBLedDriver.c
+		timeout.c
+		Uart_Routine.c
+The execution of the program is the expected one and no primary bug have been found on the code.
+Whent the micro starts the led is black, if the right header is transmitted from a terminal, a routine is triggered and a timeout is set (default 5s, settable by the header 161).
+If the header received is 160, the color selection routine is triggered and the protocol waits up to <timeout value> for each color in the right sequence (red->green->blu), it then waits again <timeout value> for the tail that has to be 192 other wise an error is triggered and the system is taken back to the initial waiting phase until a new expected header is received.
+Any header different from 160 and 161 will result in an error. 
+For detailed information about the code and its execution please refer to the code comments and, in particular, to the graph in Uart_Routine.c which explains the logic behind the transmission.
+for further informations write to oswaldo.parra@mail.polimi.it or michele.civitavecchia@mail.polimi.it

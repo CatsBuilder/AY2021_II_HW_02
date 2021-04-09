@@ -1,6 +1,12 @@
-/* =============================================
- *Header dellaroutine per aggoirnare il LED RGB
- * =============================================
+/**
+*================================================
+*       \RGBLedDriver.h
+*
+*       Header file to initialize the RGB led and implement all the functions needed to control the RGB LED
+*
+*       \Authors: Michele Civitavecchia, Oswaldo Parra
+*       \Date : 06/0472021
+*================================================
 */
 #ifndef __RGB_LED_DRIVER_H
     #define __RGB_LED_DRIVER_H
@@ -8,7 +14,7 @@
     #include "cytypes.h"
     
     
-    typedef struct color {
+    typedef struct color { //new structure for color information storage
         uint8 red;
         uint8 green;
         uint8 blu;
